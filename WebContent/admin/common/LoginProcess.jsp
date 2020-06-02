@@ -8,6 +8,9 @@ String id = request.getParameter("user_id");
 String pw = request.getParameter("user_pw");
 String id_save = request.getParameter("id_save");
 
+System.out.print(id);
+
+
 String drv = application.getInitParameter("MariaJDBCDriver");
 String url = application.getInitParameter("MariaConnectURL");
 
@@ -19,7 +22,7 @@ if(memberInfo.get("id")!=null){
 	session.setAttribute("USER_ID", memberInfo.get("id"));
 	session.setAttribute("USER_PW", memberInfo.get("pass"));
 	session.setAttribute("USER_NAME", memberInfo.get("name"));
-	session.setAttribute("grade", memberInfo.get("grade"));
+	session.setAttribute("GRADE", memberInfo.get("grade"));
 		
 	if(id_save == null){
 		Cookie ck = new Cookie("USER_ID", "");

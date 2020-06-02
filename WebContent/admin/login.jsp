@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 
 
+
+
 <script>
 	function loginValidate(fn){
 		if(!fn.user_id.value){
@@ -50,21 +52,21 @@
         <form action="./common/LoginProcess.jsp">
           <div class="form-group">
             <div class="form-label-group">
-              <input type="text" id="user_id" class="form-control" placeholder="Email address" required="required" autofocus="autofocus">
+              <input type="text" name="user_id" class="form-control" placeholder="Email address" required="required" autofocus="autofocus">
               <label for="user_id">id</label>
             </div>
           </div>
           <div class="form-group">
             <div class="form-label-group">
-              <input type="password" id="user_pw" class="form-control" placeholder="Password" required="required">
+              <input type="password" name="user_pw" class="form-control" placeholder="Password" required="required">
               <label for="user_pw">Password</label>
             </div>
           </div>
           <div class="form-group">
             <div class="checkbox">
               <label>
-                <input type="checkbox" id="id_save" value="remember-me">
-                Remember Password
+                <input type="checkbox" name="id_save" value="remember-me">
+                Remember Id
               </label>
             </div>
           </div>

@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <%
-String grade = (String)session.getAttribute("grade");
+String grade = (String)session.getAttribute("GRADE");
 
 if(grade==null || !(grade.equals("0"))){
 	request.getRequestDispatcher("login.jsp").forward(request, response);
