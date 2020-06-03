@@ -20,12 +20,7 @@ if(cookies!=null){
 	<a href="../main/main.do"><img src="../images/logo.gif" alt="마포구립장애인 직업재활센터" id="top_logo" /></a>
 	<ul id="lnb">
 	
-		<%
-		
-		
-		
-		
-		
+		<%		
 		if(session.getAttribute("USER_ID")==null){
 		%>
 		<!-- 로그인전 -->

@@ -8,8 +8,6 @@ String id = request.getParameter("user_id");
 String pw = request.getParameter("user_pw");
 String id_save = request.getParameter("id_save");
 
-System.out.print(id);
-
 
 String drv = application.getInitParameter("MariaJDBCDriver");
 String url = application.getInitParameter("MariaConnectURL");
@@ -17,6 +15,11 @@ String url = application.getInitParameter("MariaConnectURL");
 MemberDAO dao = new MemberDAO(drv, url);
 
 Map<String, String> memberInfo= dao.getMemberMap(id, pw);
+
+
+System.out.print(memberInfo.get("grade"));
+
+
 if(memberInfo.get("id")!=null){
 	
 	session.setAttribute("USER_ID", memberInfo.get("id"));
@@ -38,7 +41,7 @@ if(memberInfo.get("id")!=null){
 		response.addCookie(ck);
 	}
 	
-	response.sendRedirect("../admin.do");
+	response.sendRedirect("../index.jsp");
 }
 else{
 	request.setAttribute("ERROR_MSG", "넌 회원이 아니시군-_-;");

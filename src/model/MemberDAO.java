@@ -122,10 +122,15 @@ public class MemberDAO {
 			if(rs.next()) {
 				//true를 반환했다면 결과셋 있음
 				//DTO객체에 회원 레코드의 값을 저장한다.
+				System.out.println(rs.getString(1));
+				System.out.println(rs.getString(2));
+				System.out.println(rs.getString(3));
+				System.out.println(rs.getString(4));
+				
 				maps.put("id", rs.getString(1));
-				maps.put("pass", rs.getString("pass"));
-				maps.put("name", rs.getString("name"));
-				maps.put("grade", rs.getString("grade"));
+				maps.put("pass", rs.getString(2));
+				maps.put("name", rs.getString(3));
+				maps.put("grade", rs.getString(4));
 			}
 			else {
 				//false를 반환했다면 결과셋 없음

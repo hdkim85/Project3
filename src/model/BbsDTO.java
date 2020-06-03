@@ -14,11 +14,46 @@ public class BbsDTO {
 	private String content;		//내용
 	private String id;			//작성자 아이디(member테이블 참조)
 	private Date postDate;		//작성일
-	private String visitcount;	//조회수
 	//멤버변수 추가 : board와 member테이블의 join을 위해 name컬럼 추가
 	private String name;
 	private String bname;
-
+	private String attachedfile;
+	private int downcount;
+	private String pass;
+	private int visitcount;
+	
+	
+	
+	
+	
+	
+	
+	public String getAttachedfile() {
+		return attachedfile;
+	}
+	public void setAttachedfile(String attachedfile) {
+		this.attachedfile = attachedfile;
+	}
+	public int getDowncount() {
+		return downcount;
+	}
+	public void setDowncount(int downcount) {
+		this.downcount = downcount;
+	}
+	public String getPass() {
+		return pass;
+	}
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
+	public void setVisitcount(int visitcount) {
+		this.visitcount = visitcount;
+	}
+	
+	
+	public int getVisitcount() {
+		return visitcount;
+	}
 	//getter/setter
 	public String getName() {
 		return name;
@@ -64,12 +99,7 @@ public class BbsDTO {
 	public void setPostDate(Date postDate) {
 		this.postDate = postDate;
 	}
-	public String getVisitcount() {
-		return visitcount;
-	}
-	public void setVisitcount(String visitcount) {
-		this.visitcount = visitcount;
-	}
+
 	
 	
 }

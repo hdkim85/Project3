@@ -11,7 +11,7 @@ public class MemberDTO {
 	private String id;
 	private String pass;
 	private String name;
-	private int grade;
+	private String grade;
 	private String phone;
 	private String hp;
 	private String email;
@@ -78,12 +78,12 @@ public class MemberDTO {
 	}
 
 
-	public int getGrade() {
+	public String getGrade() {
 		return grade;
 	}
 
 
-	public void setGrade(int grade) {
+	public void setGrade(String grade) {
 		this.grade = grade;
 	}
 
