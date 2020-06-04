@@ -5,14 +5,15 @@
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%
 	//한글깨짐처리 - 검색폼에서 입력된 한글이 전송되기때문
 request.setCharacterEncoding("UTF-8");
 
 //web.xml에 저장된 컨텍스트 초기화 파라미터를 application객체를 통해 가져옴
-String drv = application.getInitParameter("JDBCDriver");
-String url = application.getInitParameter("ConnectionURL");
+String drv = application.getInitParameter("MariaJDBCDriver");
+String url = application.getInitParameter("MariaConnectURL");
+
 
 //DAO객체 생성 및 DB커넥션
 BbsDAO dao = new BbsDAO(drv, url);
@@ -23,12 +24,18 @@ BbsDAO dao = new BbsDAO(drv, url);
 */
 Map<String, Object> param = new HashMap<String, Object>();
 
+param.put("bname", "admin");
+
 //폼값을 받아서 파라미터를 저장할 변수 생성
 String queryStr = "";//검색시 페이지번호로 쿼리스트링을 넘겨주기 위한 용도
 
 //검색어 입력시 전송된 폼값을 받아 Map에 저장
 String searchColumn = request.getParameter("searchColumn");
 String searchWord = request.getParameter("searchWord");
+
+System.out.print(searchWord);
+
+
 if(searchWord!=null){
 	//검색어를 입력한 경우 Map에 값을 입력함.
 	param.put("Column", searchColumn);
@@ -78,18 +85,28 @@ List<BbsDTO> bbs = dao.selectListPage(param);
 dao.close();
 %>
 
-<!DOCTYPE html>
-<html lang="en">
-<body>
-<div class="container">
-	<div class="row">		
+
+<div id="content-wrapper">
 		
-		<div class="col-9 pt-3">
-			<h3>게시판 - <small>이런저런 기능이 있는 게시판입니다.</small></h3>
+		<div class="container-fluid">		
 			
 			<div class="row">
+
+				<form class="form-inline mr-auto ml-3 mb-2 " name="scrollFrm" method="get">
+					<div class="form-group">
+						<select name="bname" class="form-control">
+							<option value="">전체</option>
+							<option value="notice">공지사항</option>
+							<option value="free">자유게시판</option>
+							<option value="schedule">프로그램일정</option>
+							<option value="photo">사진게시판</option>
+							<option value="inform">정보자료실</option>
+						</select>					
+					</div>
+				</form>
+			
 				<!-- 검색부분 -->
-				<form class="form-inline ml-auto" name="searchFrm" method="get">	
+				<form class="form-inline ml-auto mr-3 mb-2 " name="searchFrm" method="get">	
 					<div class="form-group">
 						<select name="searchColumn" class="form-control">
 							<option value="title">제목</option>
@@ -104,50 +121,49 @@ dao.close();
 							</button>
 						</div>
 					</div>
-				</form>	
+				</form>
+			
 			</div>
-			<div class="row mt-3">
-				<!-- 게시판리스트부분 -->
-				<table class="table table-bordered table-hover table-striped">
-				<colgroup>
-					<col width="60px"/>
-					<col width="*"/>
-					<col width="120px"/>
-					<col width="120px"/>
-					<col width="80px"/>
-					<!-- <col width="60px"/> -->
-				</colgroup>				
-				<thead>
-				<tr style="background-color: rgb(133, 133, 133); " class="text-center text-white">
-					<th>번호</th>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>작성일</th>
-					<th>조회수</th>
-					<!-- <th>첨부</th> -->
-				</tr>
+			
+		<!-- DataTables Example -->
+		<div class="card mb-3">
+			
+			<div class="card-body">
 				
+				<div class="table-responsive">
 				
-				</thead>				
-				<tbody>
-		<%
+					<table class="table table-bordered" width="100%"
+						cellspacing="0">
+						<thead>
+							<tr>
+								<th>게시판</th>
+								<th>글번호</th>
+								<th>제목</th>
+								<th>작성자</th>
+								<th>작성시간</th>
+								<th>조회수</th>
+							</tr>
+						</thead>
+
+						<tbody>
+
+							<%
 			//List컬렉션에 입력된 데이터가 없을 때 true를 반환
 				if(bbs.isEmpty()){
-		%>				
-				<tr>
-					<td colspan="6" align="center" height="100">
-						등록된 게시물이 없습니다.
-					</td>
-				</tr>
-		
-		<%
+		%>
+							<tr>
+								<td colspan="6" align="center" height="100">등록된 게시물이 없습니다.
+								</td>
+							</tr>
+
+							<%
 					}
 						else
 						{
 					
 					//게시물의 가상번호로 사용할 변수
 					int vNum = 0;
-					
+					String cat = "";
 					int countNum = 0;
 					/*
 					컬렉션에 입력된 데이터가 있다면 저장된 BdsDTO의 갯수만큼
@@ -158,6 +174,19 @@ dao.close();
 						vNum = totalRecordCount 
 								- (((nowPage-1)*pageSize)
 										+countNum++);
+						
+						switch(dto.getBname()){
+							case "free": cat = "자유게시판"; break;
+							case "schedule": cat = "프로그램일정"; break;
+							case "notice": cat = "공지사항"; break;
+							case "photo": cat = "사진게시판"; break;
+							case "inform": cat = "정보자료실"; break;					
+						}
+						
+						
+						
+						
+						System.out.print(cat);
 						/* 
 						전체게시물수 : 107개
 						페이지사이즈 : 10
@@ -171,28 +200,33 @@ dao.close();
 							
 						*/
 				%>
-				
-				<!-- 리스트반복 start-->
-				<tr>
-					<td class="text-center"><%=vNum %></td>
-					<td class="text-left"><a href="BoardView.jsp?num=<%=dto.getNum() %>
+
+							<!-- 리스트반복 start-->
+							<tr>
+								<td class="text-center"><%=cat %></td>
+								<td class="text-center"><%=vNum %></td>
+								<td class="text-left"><a
+									href="BoardView.jsp?num=<%=dto.getNum() %>
 									&nowPage=<%=nowPage%>&<%=queryStr%>">
-												<%=dto.getTitle() %></a></td>
-					<td class="text-center"><%=dto.getId() %></td>
-					<td class="text-center"><%=dto.getPostDate() %></td>
-					<td class="text-center"><%=dto.getVisitcount() %></td>
-				</tr>			
-				<!-- 리스트반복 end -->
-		
-		<%
+										<%=dto.getTitle() %></a></td>
+								<td class="text-center"><%=dto.getId() %></td>
+								<td class="text-center"><%=dto.getPostDate() %></td>
+								<td class="text-center"><%=dto.getVisitcount() %></td>
+							</tr>
+							<!-- 리스트반복 end -->
+
+							<%
 			}
 			
 		}
 		%>
-			
-				</tbody>
-				</table>
+
+						</tbody>
+					</table>
+				</div>				
+				
 			</div>
+			
 			<div class="row">
 				<div class="col text-right">
 					<!-- 각종 버튼 부분 -->
@@ -204,12 +238,15 @@ dao.close();
 				<div class="col">
 					<!-- 페이지번호 부분 -->
 					<%=PagingUtil.pagingImg(totalRecordCount,
-							pageSize, blockPage, nowPage, "BoardList.jsp?"+queryStr) %>
+							pageSize, blockPage, nowPage, "tablesList.jsp?"+queryStr) %>
 					
 				</div>				
-			</div>		
+			</div>
+			
+			
+			<div class="card-footer small text-muted">Updated yesterday at
+				11:59 PM</div>
 		</div>
-	</div>
+
 </div>
-</body>
-</html>
+	<!-- /.container-fluid -->
