@@ -17,7 +17,7 @@ public class SMTPAuth extends Authenticator{
 	
 	@Override
 	protected PasswordAuthentication getPasswordAuthentication() {
-		return new PasswordAuthentication("likeasun77", "infinity1@3");
+		return new PasswordAuthentication("likeasun77", "*******");
 	}
 	
 	public boolean emailSending(Map<String, String> map) {
