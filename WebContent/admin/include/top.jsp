@@ -3,7 +3,7 @@
 
 <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-		<a class="navbar-brand mr-1" href="admin.do">관리자모드</a>
+		<a class="navbar-brand mr-1" href="/admin/admin.do">관리자모드</a>
 
 		<button class="btn btn-link btn-sm text-white order-1 order-sm-0"
 			id="sidebarToggle" href="#">

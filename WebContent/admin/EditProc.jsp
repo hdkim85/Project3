@@ -5,7 +5,8 @@
 
 <%-- 파일명: EditProc.jsp --%>
 
-<%@ include file="../common/isLogin.jsp" %>
+<%@include file="./include/head.jsp"%>
+
 <%
 	request.setCharacterEncoding("UTF-8");
 

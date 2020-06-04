@@ -35,19 +35,17 @@ dao.close();
 
 
 
-<%@include file="../include/head.jsp"  %>
+<%@include file="./include/head.jsp"  %>
 
 
 <body id="page-top">
 
 	
-	<%@ include file="../include/top.jsp" %>
-	
-	
+	<%@ include file="./include/top.jsp" %>	
 
 	<div id="wrapper">
 
-		<%@ include file="../include/left.jsp" %>
+		<%@ include file="./include/left.jsp" %>
 
 		<div id="content-wrapper">
 
@@ -118,13 +116,7 @@ dao.close();
 							
 							<div class="row mb-3">
 				<div class="col-6">
-				<%
-				/* 
-				로그인이 완료된 상태이면서, 동시에 해당 게시물의 작성자라면
-				수정, 삭제 버튼을 보이게 처리한다.
-				*/
-				if(session.getAttribute("USER_ID")!=null && session.getAttribute("USER_ID").toString().equals(dto.getId())){
-				%>
+				
 					<!-- 수정, 삭제의 경우 특정게시물에 대해 수행하는 작업이므로 반드시
 					게시물의 일련번호(PK)가 파라미터로 전달되어야 한다. -->
 					<button type="button" class="btn btn-secondary" 
@@ -133,11 +125,11 @@ dao.close();
 					인증처리만 되면 즉시 삭제처리한다. -->
 					<button type="button" class="btn btn-success"
 					onclick="isDelete();">삭제하기</button>
-				<%} %>
+
 				</div>
 				<div class="col-6 text-right pr-5">
 					<!-- 각종 버튼 부분 -->
-					<button type="button" class="btn btn-warning" onclick="location.href='BoardList.jsp?<%=queryStr%>';">리스트보기</button>
+					<button type="button" class="btn btn-warning" onclick="location.href='tablesList.jsp?<%=queryStr%>';">리스트보기</button>
 				</div>
 				<form name="deleteFrm">
 					<input type="hidden" name="num" value="<%=dto.getNum() %>"/>
@@ -173,105 +165,7 @@ dao.close();
 			</div>
 			<!-- /.container-fluid -->
 
-<%@ include file="../include/footer.jsp" %>
+<%@ include file="./include/footer.jsp" %>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-<body>
-
-
-<div class="container">
-	<jsp:include page="../common/boardTop.jsp" />
-	<div class="row">		
-		<jsp:include page="../common/boardLeft.jsp" />
-		<div class="col-9 pt-3">
-			<h3>게시판 - <small>View(상세보기)</small></h3>
-						
-			<div class="row mt-3 mr-1">
-				<table class="table table-bordered">
-				<colgroup>
-					<col width="20%"/>
-					<col width="30%"/>
-					<col width="20%"/>
-					<col width="*"/>
-				</colgroup>
-				<tbody>
-					<tr>
-						<th class="text-center table-active align-middle">아이디</th>
-						<td><%=dto.getId() %></td>
-						<th class="text-center table-active align-middle">작성일</th>
-						<td><%=dto.getPostDate() %></td>
-					</tr>
-					<tr>
-						<th class="text-center table-active align-middle">작성자</th>
-						<td><%=dto.getName() %></td>
-						<th class="text-center table-active align-middle">조회수</th>
-						<td><%=dto.getVisitcount() %></td>
-					</tr>
-					<tr>
-						<th class="text-center table-active align-middle">제목</th>
-						<td colspan="3">
-							<%=dto.getTitle() %>
-						</td>
-					</tr>
-					<tr>
-						<th class="text-center table-active align-middle">내용</th>
-						<td colspan="3" class="align-middle" style="height:200px;">
-							<%-- 
-							textarea에서 엔터키로 줄바꿈을 한 후 DB에 저장하면 \r\n으로
-							저장되므로, HTML 페이지에서 출력할 때는 <br/>태그로 문자열을
-							변경해야 한다.
-							 --%>
-							<%=dto.getContent().replace("\r\n", "<br/>") %>
-						</td>
-					</tr>
-					<!-- <tr>
-						<th class="text-center table-active align-middle">첨부파일</th>
-						<td colspan="3">
-							파일명.jpg <a href="">[다운로드]</a>
-						</td>
-					</tr> -->
-				</tbody>
-				</table>
-			</div>
-					
-			
-		</div>
-	</div>
-	<jsp:include page="../common/boardBottom.jsp" />
-</div>
-</body>
-</html>
-
-<!-- 
-	<i class='fas fa-edit' style='font-size:20px'></i>
-	<i class='fa fa-cogs' style='font-size:20px'></i>
-	<i class='fas fa-sign-in-alt' style='font-size:20px'></i>
-	<i class='fas fa-sign-out-alt' style='font-size:20px'></i>
-	<i class='far fa-edit' style='font-size:20px'></i>
-	<i class='fas fa-id-card-alt' style='font-size:20px'></i>
-	<i class='fas fa-id-card' style='font-size:20px'></i>
-	<i class='fas fa-id-card' style='font-size:20px'></i>
-	<i class='fas fa-pen' style='font-size:20px'></i>
-	<i class='fas fa-pen-alt' style='font-size:20px'></i>
-	<i class='fas fa-pen-fancy' style='font-size:20px'></i>
-	<i class='fas fa-pen-nib' style='font-size:20px'></i>
-	<i class='fas fa-pen-square' style='font-size:20px'></i>
-	<i class='fas fa-pencil-alt' style='font-size:20px'></i>
-	<i class='fas fa-pencil-ruler' style='font-size:20px'></i>
-	<i class='fa fa-cog' style='font-size:20px'></i>
-	아~~~~힘들다...ㅋ
- -->

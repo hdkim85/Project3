@@ -25,7 +25,7 @@
 			<li class="nav-item"><a class="nav-link" href="charts.jsp">
 					<i class="fas fa-fw fa-chart-area"></i> <span>Charts</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link" href="tables.jsp">
+			<li class="nav-item"><a class="nav-link" href="tablesList.jsp">
 					<i class="fas fa-fw fa-table"></i> <span>Tables</span>
 			</a></li>
 		</ul>

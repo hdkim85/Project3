@@ -259,7 +259,10 @@ function DaumPostcode() {
 	    	}
 		});
 		
+		
+		
 		$('#mo-cont').on('click', '#idUse', function(){
+			
 			$('#id').val($('#retype_id').val());			
 			$('#idchecked').val("1");
 			console.log($('#idchecked').val());

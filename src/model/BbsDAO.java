@@ -80,6 +80,9 @@ public class BbsDAO {
 		if(!(map.get("bname").equals("admin"))) {
 			query += "WHERE bname='"+ map.get("bname") +"'";			
 		}
+		else {
+			query += "WHERE 1=1 ";
+		}
 		
 		//JSP페이지에서 검색어를 입력한 경우 where절이 동적으로 추가됨.
 		if(map.get("Word")!=null) {
@@ -160,6 +163,9 @@ public class BbsDAO {
 			query += " WHERE bname= '"+ map.get("bname") +"'";
 			
 		}
+		else {
+			query += " WHERE 1=1 ";
+		}
 		
 		if(map.get("Word")!=null) {
 			query += " AND " + map.get("Column") + " "
@@ -201,6 +207,7 @@ public class BbsDAO {
 				dto.setId(rs.getString("Id"));
 				dto.setVisitcount(rs.getInt("visitcount"));
 				dto.setAttachedfile(rs.getString("attachedfile"));
+				dto.setBname(rs.getString("bname"));
 				
 				//저장된 DTO객체를 List컬렉션에 추가
 				bbs.add(dto);			
